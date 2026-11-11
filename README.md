@@ -33,3 +33,18 @@ python -m pytest tests/ -q   # 14 tests
 ```
 
 Tests caught two real bugs during the build: tombstones not applying in-session (state only loaded on reopen), and recall padding results with zero-relevance memories.
+
+## Docker
+
+Multi-stage, multi-arch image (amd64 + arm64), runs as non-root.
+
+```bash
+# Build for your local arch
+docker build -t memo .
+
+# Build for both arches with buildx
+docker buildx build --platform linux/amd64,linux/arm64 -t memo .
+
+# Run
+docker run --rm memo 
+```
